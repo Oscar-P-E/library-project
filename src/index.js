@@ -9,12 +9,20 @@ const createTable = () => {
   const row = document.createElement('tr');
   const bookNameHeading = document.createElement('th');
   const bookAuthorHeading = document.createElement('th');
+  const readStatusHeading = document.createElement('th');
+  const deleteButtonHeading = document.createElement('th');
 
   table.classList.add('library-book-table');
+
   bookNameHeading.textContent = 'Title';
   bookAuthorHeading.textContent = 'Author';
+  readStatusHeading.textContent = 'Read';
+  deleteButtonHeading.textContent = '';
+
   row.appendChild(bookNameHeading);
   row.appendChild(bookAuthorHeading);
+  row.appendChild(readStatusHeading);
+  row.appendChild(deleteButtonHeading);
   table.appendChild(row);
 
   const { myLibrary } = libraryManager;
@@ -35,12 +43,17 @@ const createTable = () => {
     const bookRow = document.createElement('tr');
     const bookNameCell = document.createElement('td');
     const bookAuthorCell = document.createElement('td');
+    const readStatusCell = document.createElement('td');
+    const deleteButtonCell = document.createElement('td');
 
     bookNameCell.textContent = book.bookName;
     bookAuthorCell.textContent = book.authorName;
 
     bookRow.appendChild(bookNameCell);
     bookRow.appendChild(bookAuthorCell);
+    bookRow.appendChild(readStatusCell);
+    bookRow.appendChild(deleteButtonCell);
+
     table.appendChild(bookRow);
   });
 

@@ -2,9 +2,10 @@ const libraryManager = (() => {
   const myLibrary = [];
 
   class Book {
-    constructor(bookName, authorName) {
+    constructor(bookName, authorName, readStatus) {
       this.bookName = bookName;
       this.authorName = authorName;
+      this.readStatus = readStatus;
     }
   }
 
@@ -18,11 +19,12 @@ const libraryManager = (() => {
     if (splitName.length === 0) {
       return surname;
     }
+    const addBookToLibrary = (bookName, authorName, readStatus) => {
     splitName = splitName.map((part) => `${part.charAt(0).toUpperCase()}.`);
     return `${splitName.join(' ')} ${surname}`;
   };
 
-  const addBookToLibrary = (bookName, authorName) => {
+  const addBookToLibrary = (bookName, authorName, readStatus) => {
     const standardisedAuthorName = standardiseAuthorName(authorName);
     if (
       myLibrary.some(
@@ -45,6 +47,8 @@ const libraryManager = (() => {
     }
     myLibrary.splice(index, 1);
   };
+
+  const readStatus
 
   return {
     addBookToLibrary,
