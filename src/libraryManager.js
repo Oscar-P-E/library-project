@@ -2,15 +2,15 @@ const libraryManager = (() => {
   const myLibrary = [];
 
   class Book {
-    constructor(bookName, authorName, readStatus) {
+    constructor(bookName, authorName, isRead) {
       this.bookName = bookName;
       this.authorName = authorName;
-      this.readStatus = readStatus;
+      this.isRead = isRead;
     }
   }
 
   const standardiseAuthorName = (authorName) => {
-    let splitName = authorName.replace(/\./g, ' ').split(/\s+/);
+    let splitName = authorName.replace(/\./g, " ").split(/\s+/);
     const surname =
       splitName[splitName.length - 1].charAt(0).toUpperCase() +
       splitName[splitName.length - 1].slice(1).toLowerCase();
@@ -19,12 +19,14 @@ const libraryManager = (() => {
     if (splitName.length === 0) {
       return surname;
     }
-    const addBookToLibrary = (bookName, authorName, readStatus) => {
     splitName = splitName.map((part) => `${part.charAt(0).toUpperCase()}.`);
-    return `${splitName.join(' ')} ${surname}`;
+    return `${splitName.join(" ")} ${surname}`;
   };
 
-  const addBookToLibrary = (bookName, authorName, readStatus) => {
+  const addBookToLibrary = (bookName, authorName, isRead) => {
+    if (typeof isRead !== "boolean") {
+      throw new Error("isRead must be a boolean value");
+    }
     const standardisedAuthorName = standardiseAuthorName(authorName);
     if (
       myLibrary.some(
@@ -37,35 +39,38 @@ const libraryManager = (() => {
         `Book ${bookName}, ${standardisedAuthorName} already exists`
       );
     }
-    const book = new Book(bookName, standardisedAuthorName);
+    const book = new Book(bookName, standardisedAuthorName, isRead);
     myLibrary.push(book);
+  };
+
+  const changeIsRead = (index, bool) => {
+    myLibrary[index].isRead = bool;
   };
 
   const removeBookFromLibrary = (index) => {
     if (index < 0 || index >= myLibrary.length) {
-      throw new Error('Invalid index');
+      throw new Error("Invalid index");
     }
     myLibrary.splice(index, 1);
   };
 
-  const readStatus
-
   return {
     addBookToLibrary,
+    changeIsRead,
     removeBookFromLibrary,
     myLibrary,
   };
 })();
 
 // Test:
-// libraryManager.addBookToLibrary('Harry Potter', 'J K Rowling');
-// libraryManager.addBookToLibrary('Harry Potter', 'J K Rowling');
-// libraryManager.addBookToLibrary('Harry Potter', 'J. K. Rowling');
-libraryManager.addBookToLibrary('Harry Potter', 'J.K. Rowling');
-// libraryManager.addBookToLibrary('Harry Potter', 'Joanne Kathleen Rowling');
-libraryManager.addBookToLibrary('The Iliad', 'Homer');
-libraryManager.addBookToLibrary('1984', 'George Orwell');
+// libraryManager.addBookToLibrary("Harry Potter", "J K Rowling");
+// libraryManager.addBookToLibrary("Harry Potter", "J K Rowling");
+// libraryManager.addBookToLibrary("Harry Potter", "J. K. Rowling");
+libraryManager.addBookToLibrary("Harry Potter", "J.K. Rowling", false);
+// libraryManager.addBookToLibrary("Harry Potter", "Joanne Kathleen Rowling");
+libraryManager.addBookToLibrary("The Iliad", "Homer", true);
+libraryManager.addBookToLibrary("1984", "George Orwell", true);
 // console.log(libraryManager.myLibrary);
-// console.log('Successfully got to this point');
+// console.log("Successfully got to this point");
 
 export default libraryManager;
