@@ -70,7 +70,7 @@ libraryManager.addBookToLibrary("Harry Potter", "J.K. Rowling", false);
 // libraryManager.addBookToLibrary("Harry Potter", "Joanne Kathleen Rowling");
 libraryManager.addBookToLibrary("The Iliad", "Homer", true);
 libraryManager.addBookToLibrary("1984", "George Orwell", true);
-// console.log(libraryManager.myLibrary);
+// console.table(libraryManager.myLibrary);
 // console.log("Successfully got to this point");
 
 export default libraryManager;
